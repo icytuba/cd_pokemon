@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import axios from 'axios'
 
 const api = 'https://pokeapi.co/api/v2/';
 
@@ -6,9 +7,11 @@ const Pokemon = (props) =>{
     const [pokemon, setPokemon] = useState([]);
 
     useEffect(()=>{
-        fetch(api+'pokemon?limit=100000&offset=0')
-            .then(res => res.json())
-            .then(res => setPokemon(res.results))
+        axios.get(api + 'pokemon?limit=100000&offset=0')
+            .then(res => {
+                console.log(res);
+                return setPokemon(res.data.results)
+            })
             .catch(err => console.log(err))
     },[]);
 
